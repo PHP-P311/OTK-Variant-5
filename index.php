@@ -19,7 +19,6 @@ $select_individuals = mysqli_query($connect, "SELECT * FROM `individuals`");
 $select_individuals = mysqli_fetch_all($select_individuals);
 // print_r($select_individuals); // Array ( [0] => Array ( [0] => 1 [1] => asd@asd [2] => Иван Иванович Иванов [3] => 2024-04-12 [4] => 1111 111111 [5] => 11111111111 ) )
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,12 +85,6 @@ $select_individuals = mysqli_fetch_all($select_individuals);
             </form>
         </div>
     </div>
-    
-    <?php if($_COOKIE['role'] == 1){
-        
-    } ?>
-    <?php if($_COOKIE['role'] == 2){} ?>
-    <?php if($_COOKIE['role'] == 3){} ?>
 
     <div class="modal_create_client">
         <div class="header" style="display: flex; gap: 10px; justify-content: space-between;">

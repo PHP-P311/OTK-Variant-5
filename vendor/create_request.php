@@ -8,54 +8,57 @@ if(empty($_COOKIE['id_user'])) { // Проверяем, есть ли у пол�
 
 require_once("../db/db.php"); // Подключаем файл с настройками базы данных
 
-$vessel_code = $_POST['vessel_code'];
+$vessel_code = $_POST['vessel_code']; // Получаем код сосуда из формы
+
+// Проверяем, существует ли сосуд с таким кодом в базе данных
 $select_vessel = mysqli_query($connect, "SELECT `id` FROM `vessels` WHERE `vessel_name`='$vessel_code'");
 $select_vessel = mysqli_fetch_assoc($select_vessel);
-if(empty($select_vessel)) {
-    mysqli_query($connect, "INSERT INTO `vessels` (`vessel_name`) VALUES ('$vessel_code')");
-    $select_vessel = mysqli_insert_id($connect);
-} else {
-    $select_vessel = $select_vessel['id'];
+
+if(empty($select_vessel)) { // Если сосуд не найден в базе данных
+    mysqli_query($connect, "INSERT INTO `vessels` (`vessel_name`) VALUES ('$vessel_code')"); // Вставляем новый сосуд
+    $select_vessel = mysqli_insert_id($connect); // Получаем идентификатор только что вставленного сосуда
+} else { // Если сосуд найден в базе данных
+    $select_vessel = $select_vessel['id']; // Получаем идентификатор сосуда
 }
 
-$service = $_POST['service'];
-// Проверка количества элементов в массиве
+$service = $_POST['service']; // Получаем выбранные услуги из формы
+
+// Проверяем количество выбранных услуг
 if (count($service) == 1) {
-    // Если в массиве только один элемент, выводим его без разделения запятыми
+    // Если выбрана только одна услуга, оставляем ее без разделения
     $service = $service[0];
 } else {
-    // Если в массиве несколько элементов, преобразуем его в строку, разделенную запятыми
+    // Если выбрано несколько услуг, преобразуем массив в строку, разделенную запятыми
     $service = implode(', ', $service);
 }
 
-// Проверка наличия значения fullname и company_name
-if (!empty($_POST['fullname'])) {
-    // Если fullname не пустое, делаем одно действие
+// Проверяем, заполнено ли поле "ФИО клиента" или "Название компании"
+if (!empty($_POST['fullname'])) { // Если заполнено поле "ФИО клиента"
+    // Получаем ФИО клиента из формы
     $fullname = $_POST['fullname'];
+    // Проверяем, существует ли клиент с таким ФИО в базе данных
     $select_client = mysqli_query($connect, "SELECT `id` FROM `individuals` WHERE `fullname`='$fullname'");
     $select_client = mysqli_fetch_assoc($select_client);
-    $select_client = $select_client['id'];
+    $select_client = $select_client['id']; // Получаем идентификатор клиента
 
-    mysqli_query($connect, "INSERT INTO `requests`
-                            (`vessel_id`, `id_service`, `id_client`)
-                            VALUES
-                            ('$select_vessel', '$service', '$select_client')");
+    // Вставляем новую заявку в базу данных
+    mysqli_query($connect, "INSERT INTO `requests` (`vessel_id`, `id_service`, `id_client`)
+                            VALUES ('$select_vessel', '$service', '$select_client')");
     
-    header("Location: ../index.php");
-} elseif (!empty($_POST['company_name'])) {
-    // Если company_name не пустое, делаем другое действие
+    header("Location: ../index.php"); // Перенаправляем пользователя на главную страницу
+} elseif (!empty($_POST['company_name'])) { // Если заполнено поле "Название компании"
+    // Получаем название компании из формы
     $company_name = $_POST['company_name'];
+    // Проверяем, существует ли компания с таким названием в базе данных
     $select_client = mysqli_query($connect, "SELECT `id` FROM `legal_entities` WHERE `company_name`='$company_name'");
     $select_client = mysqli_fetch_assoc($select_client);
-    $select_client = $select_client['id'];
+    $select_client = $select_client['id']; // Получаем идентификатор компании
 
-    mysqli_query($connect, "INSERT INTO `requests`
-                            (`vessel_id`, `id_service`, `id_client`)
-                            VALUES
-                            ('$select_vessel', '$service', '$select_client')");
+    // Вставляем новую заявку в базу данных
+    mysqli_query($connect, "INSERT INTO `requests` (`vessel_id`, `id_service`, `id_client`)
+                            VALUES ('$select_vessel', '$service', '$select_client')");
     
-    header("Location: ../index.php");
+    header("Location: ../index.php"); // Перенаправляем пользователя на главную страницу
 } else {
-    header("Location: ../index.php");
+    header("Location: ../index.php"); // Перенаправляем пользователя на главную страницу
 }
-
