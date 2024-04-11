@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +14,7 @@
     <div class="container">
         <div class="container_content">
             <h2>Авторизация</h2>
-            <form action="" method="post" class="auth_form">
+            <form action="./vendor/login.php" method="post" class="auth_form">
                 <div class="auth_form_item">
                     <p>Логин</p>
                     <input type="text" name="login" placeholder="Логин" required>
@@ -25,6 +28,16 @@
                     <input type="submit" value="Войти">
                 </div>
             </form>
+            <?php
+            if(empty($_SESSION['errLogin'])) {
+                echo "";
+            } else {
+                echo "<br>";
+                echo $_SESSION['errLogin'];
+                echo "<br>";
+            }
+            session_destroy();
+            ?>
             <br>
             <a href="./reg.php">Зарегистрироваться</a>
         </div>
