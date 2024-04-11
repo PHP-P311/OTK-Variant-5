@@ -9,6 +9,20 @@ if(empty($_COOKIE['id_user'])) {
 
 require_once("./db/db.php");
 
+$select_vessels = mysqli_query($connect, "SELECT * FROM `vessels`");
+$select_vessels = mysqli_fetch_all($select_vessels);
+// print_r($select_vessels); // Пусто
+$select_services = mysqli_query($connect, "SELECT * FROM `services`");
+$select_services = mysqli_fetch_all($select_services);
+// print_r($select_services); // Array ( [0] => Array ( [0] => 1 [1] => Проверка на прочность [2] => 100 ) [1] => Array ( [0] => 2 [1] => Проверка на теплоустойчивость [2] => 200 ) [2] => Array ( [0] => 3 [1] => Проверка на качество [2] => 500 ) [3] => Array ( [0] => 4 [1] => Проверка на ГОСТ [2] => 700 ) )
+$select_legal_entities = mysqli_query($connect, "SELECT * FROM `legal_entities`");
+$select_legal_entities = mysqli_fetch_all($select_legal_entities);
+// print_r($select_legal_entities); // Array ( [0] => Array ( [0] => 1 [1] => Привет [2] => Привет [3] => 123123 [4] => 12312321 [5] => 3123123213 [6] => Иван Иванович Иванов [7] => Иван Иванович Иванов [8] => 11111111111 [9] => asd@asd ) )
+$select_individuals = mysqli_query($connect, "SELECT * FROM `individuals`");
+$select_individuals = mysqli_fetch_all($select_individuals);
+// print_r($select_individuals); // Array ( [0] => Array ( [0] => 1 [1] => asd@asd [2] => Иван Иванович Иванов [3] => 2024-04-12 [4] => 1111 111111 [5] => 11111111111 ) )
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,12 +35,20 @@ require_once("./db/db.php");
 </head>
 <body>
     <a href="./logout.php">Выйти</a>
+    <br><br>
     <p class="create_client_p">Добавить клиента</p>
+    <br>
 
     <div class="create_request">
         <h2>Создать заявку</h2>
-        <form action="./vendor/create_request.php" method="post">
-            
+        <form action="./vendor/create_request.php" class="request_form" method="post">
+            <div class="request_item">
+                <p>Код лабораторной посуды</p>
+                <input type="text" name="vessel_code" id="vessel_code" placeholder="Код лабораторной посуды" required>
+                <div class="selected_vessels">
+                    <ul id="vessel_list"></ul>
+                </div>
+            </div>
         </form>
     </div>
 

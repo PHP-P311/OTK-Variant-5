@@ -67,3 +67,24 @@ document.addEventListener("DOMContentLoaded", function() {
 		modalCreateClient.style.display = "none";
     });
 });
+
+$(document).ready(function() {
+    $('#vessel_code').on('input', function() {
+        var code = $(this).val();
+        $.ajax({
+            url: './vendor/search_vessel.php', // Замените на путь к вашему скрипту поиска
+            method: 'POST',
+            data: {code: code},
+            success: function(response) {
+                $('#vessel_list').empty();
+                if (response.length > 0) {
+                    $.each(response, function(index, vessel) {
+                        $('#vessel_list').append('<li>' + vessel.vessel_name + '</li>');
+                    });
+                } else {
+                    $('#vessel_list').append('<li>Пусто</li>');
+                }
+            }
+        });
+    });
+});
