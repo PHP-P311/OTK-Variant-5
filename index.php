@@ -44,11 +44,15 @@ require_once("./db/db.php");
             <div class="form_for_one" style="display: none;">
                 <div class="form_one_item">
                     <p>Email</p>
-                    <input type="email" name="email" placeholder="Email">
+                    <input type="email" name="email_fiz" placeholder="Email">
                 </div>
                 <div class="form_one_item">
                     <p>ФИО</p>
                     <input type="text" name="fullname" placeholder="ФИО">
+                </div>
+                <div class="form_one_item">
+                    <p>Дата рождения</p>
+                    <input type="date" name="birthdate">
                 </div>
                 <div class="form_one_item">
                     <p>Серия и номер паспорта</p>
@@ -94,7 +98,7 @@ require_once("./db/db.php");
                 </div>
                 <div class="form_two_item">
                     <p>Email</p>
-                    <input type="email" name="email" placeholder="Email">
+                    <input type="email" name="email_yur" placeholder="Email">
                 </div>
             </div>
 
