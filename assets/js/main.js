@@ -74,12 +74,6 @@ $(document).ready(function() {
         $('#vessel_code').val(value);
     }
 
-    // Обработчик клика на элемент списка
-    $('#vessel_list').on('click', 'li', function() {
-        var selectedValue = $(this).text();
-        updateInput(selectedValue);
-    });
-
     // Функция для обновления списка сосудов
     function updateVesselList(data) {
         $('#vessel_list').empty();
@@ -87,6 +81,8 @@ $(document).ready(function() {
             $.each(data, function(index, vessel) {
                 $('#vessel_list').append('<li style="cursor: pointer;">' + vessel.vessel_name + '</li>');
             });
+            // Добавляем стиль display: block; к #vessel_list
+            $('#vessel_list').css('display', 'block');
         } else {
             $('#vessel_list').append('<li>Пусто</li>');
         }
@@ -104,6 +100,14 @@ $(document).ready(function() {
             }
         });
     });
+
+    // Обработчик клика на элемент списка
+    $('#vessel_list').on('click', 'li', function() {
+        var selectedValue = $(this).text();
+        updateInput(selectedValue);
+        // Скрытие списка после выбора элемента
+        $('#vessel_list').css('display', 'none');
+    });
 });
 
 $(document).ready(function() {
@@ -112,12 +116,6 @@ $(document).ready(function() {
         $('#fullname').val(value);
     }
 
-    // Обработчик клика на элемент списка
-    $('#fiz_list').on('click', 'li', function() {
-        var selectedValue = $(this).text();
-        updateInput(selectedValue);
-    });
-
     // Функция для обновления списка сосудов
     function updateVesselList(data) {
         $('#fiz_list').empty();
@@ -125,6 +123,8 @@ $(document).ready(function() {
             $.each(data, function(index, vessel) {
                 $('#fiz_list').append('<li style="cursor: pointer;">' + vessel.fullname + '</li>');
             });
+            // Добавляем стиль display: block; к #vessel_list
+            $('#fiz_list').css('display', 'block');
         } else {
             $('#fiz_list').append('<li>Пусто</li>');
         }
@@ -142,6 +142,14 @@ $(document).ready(function() {
             }
         });
     });
+
+    // Обработчик клика на элемент списка
+    $('#fiz_list').on('click', 'li', function() {
+        var selectedValue = $(this).text();
+        updateInput(selectedValue);
+        // Скрытие списка после выбора элемента
+        $('#fiz_list').css('display', 'none');
+    });
 });
 
 $(document).ready(function() {
@@ -150,12 +158,6 @@ $(document).ready(function() {
         $('#company_name').val(value);
     }
 
-    // Обработчик клика на элемент списка
-    $('#yur_list').on('click', 'li', function() {
-        var selectedValue = $(this).text();
-        updateInput(selectedValue);
-    });
-
     // Функция для обновления списка сосудов
     function updateVesselList(data) {
         $('#yur_list').empty();
@@ -163,6 +165,8 @@ $(document).ready(function() {
             $.each(data, function(index, vessel) {
                 $('#yur_list').append('<li style="cursor: pointer;">' + vessel.company_name + '</li>');
             });
+            // Добавляем стиль display: block; к #vessel_list
+            $('#yur_list').css('display', 'block');
         } else {
             $('#yur_list').append('<li>Пусто</li>');
         }
@@ -180,8 +184,15 @@ $(document).ready(function() {
             }
         });
     });
-});
 
+    // Обработчик клика на элемент списка
+    $('#yur_list').on('click', 'li', function() {
+        var selectedValue = $(this).text();
+        updateInput(selectedValue);
+        // Скрытие списка после выбора элемента
+        $('#yur_list').css('display', 'none');
+    });
+});
 
 document.addEventListener("DOMContentLoaded", function() {
     // Получаем ссылки на элементы DOM
@@ -189,6 +200,8 @@ document.addEventListener("DOMContentLoaded", function() {
     var typeTwoRadio = document.getElementById("type_yur");
     var formForOne = document.querySelector(".for_fiz");
     var formForTwo = document.querySelector(".for_yur");
+    var fullnameInput = document.getElementById("fullname");
+    var companyNameInput = document.getElementById("company_name");
 	
 
     // Добавляем обработчик события для радиокнопки type_one
@@ -199,6 +212,7 @@ document.addEventListener("DOMContentLoaded", function() {
             formForTwo.style.display = "none";
             // Снимаем выбор с радиокнопки type_two
             typeTwoRadio.checked = false;
+            companyNameInput.value = "";
         }
     });
 
@@ -210,6 +224,7 @@ document.addEventListener("DOMContentLoaded", function() {
             formForOne.style.display = "none";
             // Снимаем выбор с радиокнопки type_one
             typeOneRadio.checked = false;
+            fullnameInput.value = "";
         }
     });
 });

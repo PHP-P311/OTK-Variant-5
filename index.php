@@ -44,7 +44,7 @@ $select_individuals = mysqli_fetch_all($select_individuals);
                     <p>Код лабораторной посуды</p>
                     <input type="text" name="vessel_code" id="vessel_code" placeholder="Код лабораторной посуды" required style="width: 100%;">
                     <div class="selected_vessels">
-                        <ul id="vessel_list" style="list-style-type: none;background-color: blueviolet;color: #fff;padding: 10px 15px;"></ul>
+                        <ul id="vessel_list" style="display: none; list-style-type: none;background-color: blueviolet;color: #fff;padding: 10px 15px;"></ul>
                     </div>
                 </div>
                 <div class="request_item">
@@ -57,14 +57,14 @@ $select_individuals = mysqli_fetch_all($select_individuals);
                         <p>ФИО Клиента</p>
                         <input type="text" name="fullname" id="fullname" placeholder="ФИО Клиента" style="width: 100%;">
                         <div class="selected_fiz">
-                            <ul id="fiz_list" style="list-style-type: none;background-color: blueviolet;color: #fff;padding: 10px 15px;"></ul>
+                            <ul id="fiz_list" style="display: none; list-style-type: none;background-color: blueviolet;color: #fff;padding: 10px 15px;"></ul>
                         </div>
                     </div>
                     <div class="for_yur" style="display: none; flex-direction: column; gap: 10px;">
                         <p>Название компании</p>
                         <input type="text" name="company_name" id="company_name" placeholder="Название компании" style="width: 100%;">
                         <div class="selected_yur">
-                            <ul id="yur_list" style="list-style-type: none;background-color: blueviolet;color: #fff;padding: 10px 15px;"></ul>
+                            <ul id="yur_list" style="display: none; list-style-type: none;background-color: blueviolet;color: #fff;padding: 10px 15px;"></ul>
                         </div>
                     </div>
                 </div>
