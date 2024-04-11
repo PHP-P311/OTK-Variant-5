@@ -23,6 +23,13 @@ require_once("./db/db.php");
     <a href="./logout.php">Выйти</a>
     <p class="create_client_p">Добавить клиента</p>
 
+    <div class="create_request">
+        <h2>Создать заявку</h2>
+        <form action="./vendor/create_request.php" method="post">
+            
+        </form>
+    </div>
+
     <?php if($_COOKIE['role'] == 1){
         
     } ?>
