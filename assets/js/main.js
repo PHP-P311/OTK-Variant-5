@@ -69,21 +69,38 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 $(document).ready(function() {
+    // Функция для обновления значения поля ввода при выборе элемента из списка
+    function updateInput(value) {
+        $('#vessel_code').val(value);
+    }
+
+    // Обработчик клика на элемент списка
+    $('#vessel_list').on('click', 'li', function() {
+        var selectedValue = $(this).text();
+        updateInput(selectedValue);
+    });
+
+    // Функция для обновления списка сосудов
+    function updateVesselList(data) {
+        $('#vessel_list').empty();
+        if (data.length > 0) {
+            $.each(data, function(index, vessel) {
+                $('#vessel_list').append('<li style="cursor: pointer;">' + vessel.vessel_name + '</li>');
+            });
+        } else {
+            $('#vessel_list').append('<li>Пусто</li>');
+        }
+    }
+
+    // Обработчик ввода в поле поиска
     $('#vessel_code').on('input', function() {
         var code = $(this).val();
         $.ajax({
-            url: './vendor/search_vessel.php', // Замените на путь к вашему скрипту поиска
+            url: './vendor/search_vessel.php',
             method: 'POST',
             data: {code: code},
             success: function(response) {
-                $('#vessel_list').empty();
-                if (response.length > 0) {
-                    $.each(response, function(index, vessel) {
-                        $('#vessel_list').append('<li>' + vessel.vessel_name + '</li>');
-                    });
-                } else {
-                    $('#vessel_list').append('<li>Пусто</li>');
-                }
+                updateVesselList(response);
             }
         });
     });

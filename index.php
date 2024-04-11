@@ -34,24 +34,54 @@ $select_individuals = mysqli_fetch_all($select_individuals);
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-    <a href="./logout.php">Выйти</a>
-    <br><br>
-    <p class="create_client_p">Добавить клиента</p>
-    <br>
+    <div class="container">
+        <a href="./logout.php">Выйти</a>
+        <br><br>
+        <p class="create_client_p">Добавить клиента</p>
+        <br>
 
-    <div class="create_request">
-        <h2>Создать заявку</h2>
-        <form action="./vendor/create_request.php" class="request_form" method="post">
-            <div class="request_item">
-                <p>Код лабораторной посуды</p>
-                <input type="text" name="vessel_code" id="vessel_code" placeholder="Код лабораторной посуды" required>
-                <div class="selected_vessels">
-                    <ul id="vessel_list"></ul>
+        <div class="create_request">
+            <h2>Создать заявку</h2>
+            <form action="./vendor/create_request.php" class="request_form" method="post">
+                <div class="request_item">
+                    <p>Код лабораторной посуды</p>
+                    <input type="text" name="vessel_code" id="vessel_code" placeholder="Код лабораторной посуды" required style="width: 100%;">
+                    <div class="selected_vessels">
+                        <ul id="vessel_list" style="list-style-type: none;background-color: blueviolet;color: #fff;padding: 10px 15px;"></ul>
+                    </div>
                 </div>
-            </div>
-        </form>
+                <div class="request_item">
+                    <p>Клиент</p>
+                    <div class="select_types_client" style="margin: 0;">
+                        <label><input type="radio" class="type_one" id="type_fiz"> ФЛ</label>
+                        <label><input type="radio" class="type_two" id="type_yur"> ЮР</label>
+                    </div>
+                    <div class="for_fiz" style="display: none;">
+                        <p>ФИО Клиента</p>
+                    </div>
+                    <div class="for_yur" style="display: none;">
+                        <p>Название компании</p>
+                    </div>
+                </div>
+                <div class="request_item" style="margin: 10px 0">
+                    <p>Тип услуги</p>
+                    <ul style="display: flex; flex-direction: column; gap: 5px; list-style-type: none;">
+                        <?php
+                        foreach ($select_services as $service) {
+                            $service_id = $service[0];
+                            $service_name = $service[1];
+                            echo '<li><input type="checkbox" name="service[]" value="' . $service_id . '">' . $service_name . '</li>';
+                        }
+                        ?>
+                    </ul>
+                </div>
+                <div class="request_button">
+                    <input type="submit" value="Создать" style="padding: 15px;border: 0;background-color: cornflowerblue;color: #fff;width: 100%;border-radius: 15px;">
+                </div>
+            </form>
+        </div>
     </div>
-
+    
     <?php if($_COOKIE['role'] == 1){
         
     } ?>
