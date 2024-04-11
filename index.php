@@ -9,12 +9,9 @@ if(empty($_COOKIE['id_user'])) {
 
 require_once("./db/db.php");
 
-$select_vessels = mysqli_query($connect, "SELECT * FROM `vessels`");
-$select_vessels = mysqli_fetch_all($select_vessels);
-// print_r($select_vessels); // Пусто
 $select_services = mysqli_query($connect, "SELECT * FROM `services`");
 $select_services = mysqli_fetch_all($select_services);
-// print_r($select_services); // Array ( [0] => Array ( [0] => 1 [1] => Проверка на прочность [2] => 100 ) [1] => Array ( [0] => 2 [1] => Проверка на теплоустойчивость [2] => 200 ) [2] => Array ( [0] => 3 [1] => Проверка на качество [2] => 500 ) [3] => Array ( [0] => 4 [1] => Проверка на ГОСТ [2] => 700 ) )
+
 $select_legal_entities = mysqli_query($connect, "SELECT * FROM `legal_entities`");
 $select_legal_entities = mysqli_fetch_all($select_legal_entities);
 // print_r($select_legal_entities); // Array ( [0] => Array ( [0] => 1 [1] => Привет [2] => Привет [3] => 123123 [4] => 12312321 [5] => 3123123213 [6] => Иван Иванович Иванов [7] => Иван Иванович Иванов [8] => 11111111111 [9] => asd@asd ) )
@@ -56,11 +53,19 @@ $select_individuals = mysqli_fetch_all($select_individuals);
                         <label><input type="radio" class="type_one" id="type_fiz"> ФЛ</label>
                         <label><input type="radio" class="type_two" id="type_yur"> ЮР</label>
                     </div>
-                    <div class="for_fiz" style="display: none;">
+                    <div class="for_fiz" style="display: none; flex-direction: column; gap: 10px;">
                         <p>ФИО Клиента</p>
+                        <input type="text" name="fullname" id="fullname" placeholder="ФИО Клиента" style="width: 100%;">
+                        <div class="selected_fiz">
+                            <ul id="fiz_list" style="list-style-type: none;background-color: blueviolet;color: #fff;padding: 10px 15px;"></ul>
+                        </div>
                     </div>
-                    <div class="for_yur" style="display: none;">
+                    <div class="for_yur" style="display: none; flex-direction: column; gap: 10px;">
                         <p>Название компании</p>
+                        <input type="text" name="company_name" id="company_name" placeholder="Название компании" style="width: 100%;">
+                        <div class="selected_yur">
+                            <ul id="yur_list" style="list-style-type: none;background-color: blueviolet;color: #fff;padding: 10px 15px;"></ul>
+                        </div>
                     </div>
                 </div>
                 <div class="request_item" style="margin: 10px 0">
