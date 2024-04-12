@@ -38,8 +38,6 @@ session_start();
             }
             session_destroy();
             ?>
-            <br>
-            <a href="./reg.php">Зарегистрироваться</a>
         </div>
     </div>
 
